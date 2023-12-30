@@ -25,7 +25,6 @@ public class Recipe {
                 ", calories=" + calories +
                 ", prepTime=" + prepTime +
                 ", cookTime=" + cookTime +
-                ", country=" + country +
                 '}';
     }
 
@@ -38,12 +37,12 @@ public class Recipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return calories == recipe.calories && Double.compare(recipe.prepTime, prepTime) == 0 && Double.compare(recipe.cookTime, cookTime) == 0 && country == recipe.country && Objects.equals(id, recipe.id) && Objects.equals(name, recipe.name);
+        return calories == recipe.calories && Double.compare(recipe.prepTime, prepTime) == 0 && Double.compare(recipe.cookTime, cookTime) == 0 && Objects.equals(id, recipe.id) && Objects.equals(name, recipe.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, calories, prepTime, cookTime, country);
+        return Objects.hash(id, name, calories, prepTime, cookTime);
     }
 
     public void setId(Long id) {
@@ -82,18 +81,9 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
-    public int getCountry() {
-        return country;
-    }
-
-    public void setCountry(int country) {
-        this.country = country;
-    }
-
     private String name;
     private int calories;
     private double prepTime;
     private double cookTime;
-    private int country;
 
 }

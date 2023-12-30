@@ -29,9 +29,6 @@ public class RecipeController {
 
     @GetMapping("/recipes")
     public List<Recipe> getAllRecipes(@RequestParam(required = false) Integer country) {
-        if(country != null) {
-            return service.findByCountry(country);
-        }
 
         return service.getAll();
     }

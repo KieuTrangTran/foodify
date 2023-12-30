@@ -16,9 +16,6 @@ public class RecipeService {
         return repo.save(recipe);
     }
 
-    public List<Recipe> findByCountry(int country) {
-        return repo.findByCountry(country);
-    }
 
     public Recipe get(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException());
