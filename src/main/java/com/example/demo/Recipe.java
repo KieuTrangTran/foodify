@@ -16,6 +16,20 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private int calories;
+    private double prepTime;
+    private double cookTime;
+
+    public Recipe() {
+    }
+
+    public Recipe(String name, int calories, double prepTime, double cookTime) {
+        this.name = name;
+        this.calories = calories;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+    }
 
     @Override
     public String toString() {
@@ -81,9 +95,6 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
-    private String name;
-    private int calories;
-    private double prepTime;
-    private double cookTime;
+
 
 }
