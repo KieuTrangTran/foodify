@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -8,8 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,4 +41,24 @@ public class RecipeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString(expected)));
     }
+
+    @Test
+    public void testCreateRecipe() throws Exception {
+        // Testdaten vorbereiten
+        Recipe newRecipe = new Recipe("Lasagne", 250, 30, 30);
+        when(service.save(any(Recipe.class))).thenReturn(newRecipe);
+
+        // Konvertiere das Objekt in einen JSON String
+        ObjectMapper objectMapper = new ObjectMapper();
+        String newRecipeJson = objectMapper.writeValueAsString(newRecipe);
+
+        // Aufruf und Vergleich
+        this.mockMvc.perform(post("/recipes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newRecipeJson))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(newRecipeJson));
+    }
+
 }
